@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+	<head>
+		<title>JavaScript</title>
+		
+	</head>
+	<body>
+		<label for="elegirFig">elige una figura:</label>
+		<select name="figuras" id="elegirFig"  onchange="mostrarTXT()">
+		  <option value="t1">Triangulo</option>
+		  <option value="c1">Cuadrado</option>
+		  <option value="c1">Circulo</option>
+		</select>
+		<br>
+		<br>
+		
+		<div id="tri1">
+		<label>x1,y1<input type="text" id="txtXY1" name="Name" /></label>
+		<label>x2,y2 <input type="text" id="txtXY2" name="Name" /></label>
+		<label>x3,y3<input type="text" id="txtXY3" name="Name" /></label>
+		</div>
+		
+		<div id="cuad1" style="display: none; ">
+		<label>x1,y1<input type="text" id="txtXY1c" name="Name" /></label>
+		<label>base,altura <input type="text" id="txtXY2c" name="Name" /></label>
+		
+		</div>
+		
+		<div id="cir1" style="display: none; ">
+		<label>x1,y1<input type="text" id="txtXY1ci" name="Name" /></label>
+		<label>radio<input type="text" id="txtXY2ci" name="Name" /></label>
+		
+		</div>
+		
+		<label>Elige el color: </label>
+		<input type="color" name="color" id="color" value="#ff5722">
+			
+		<button type='button' onclick='pintarFigura()'>agregar!</button>
+		
+		<br>
+		<br>
+		<canvas id="myCanvas" width="900" height="700" style="border:1px solid #000000;"></canvas> 
+		
+		<script>
+		var c = document.getElementById("myCanvas");
+		var ctx = c.getContext("2d");
+		
+		function pintarTriangulo(xy1,xy2,xy3,color){
+			alert("El resultado es: " + xy1);
+			 arrayDeCadenas = xy1.split(",");
+			 arrayDeCadenas2 = xy2.split(",");
+			 arrayDeCadenas3 = xy3.split(",");
+			// Tri
+			ctx.beginPath();
+			ctx.fillStyle= color;
+			ctx.strokeStyle = "#000000";
+			ctx.moveTo(arrayDeCadenas[0], arrayDeCadenas[1]);
+			ctx.lineTo(arrayDeCadenas2[0], arrayDeCadenas2[1]);
+			ctx.lineTo(arrayDeCadenas3[0], arrayDeCadenas3[1]);
+			ctx.fill();
+			ctx.closePath();
+			}
+			
+			
+			function pintarCuadrado(xy1c,xy2c,color){
+			alert("El resultado es: " + xy1c);
+			var arrayDeCadenas = xy1c.split(",");
+			var arrayDeCadenas2 = xy2c.split(",");
+		
+			// cuad
+			ctx.beginPath();
+			ctx.fillStyle= color;
+			ctx.fillRect(arrayDeCadenas[0], arrayDeCadenas[1],arrayDeCadenas2[0], arrayDeCadenas2[1]);
+			ctx.closePath();
+			}
+			
+			
+			function pintarCirculo(xy1ci,xy2ci,color){
+			alert("El resultado es: " + xy1ci);
+			var arrayDeCadenas = xy1ci.split(",");
+		
+			// cir
+			ctx.beginPath();
+			ctx.strokeStyle = color;
+			ctx.fillStyle = color;
+			ctx.lineWidth=10;
+			ctx.arc(arrayDeCadenas[0], arrayDeCadenas[1],xy2ci,0,2* Math.PI);
+			ctx.fill();
+			ctx.stroke();
+			ctx.closePath();
+			}
+		
+		
+		
+		tipo="tri";
+		
+		function mostrarTXT(){
+		combo= document.getElementById("elegirFig");
+		selected= combo.options[combo.selectedIndex].text;
+		alert(selected);
+		
+		if(selected=="Triangulo"){
+			document.getElementById('tri1').style.display="";
+			document.getElementById('cuad1').style.display="none";
+			document.getElementById('cir1').style.display="none";
+			tipo="tri";
+		}
+		if(selected=="Cuadrado"){
+			document.getElementById('cuad1').style.display="";
+			document.getElementById('tri1').style.display="none";
+			document.getElementById('cir1').style.display="none";
+			tipo="cuad";
+		}	
+		if(selected=="Circulo"){
+			document.getElementById('cir1').style.display="";
+			document.getElementById('cuad1').style.display="none";
+			document.getElementById('tri1').style.display="none";
+			tipo="cir";
+		}		
+		}
+		
+		
+		
+		function pintarFigura(){
+			alert(tipo);
+			if(tipo=="tri"){
+			xy1t = document.getElementById("txtXY1").value
+			xy2t = document.getElementById("txtXY2").value
+			xy3t = document.getElementById("txtXY3").value
+			colorFig= document.getElementById("color").value;
+			pintarTriangulo(xy1t,xy2t,xy3t,colorFig);
+			
+			}
+			if(tipo=="cuad"){
+			xy1c = document.getElementById("txtXY1c").value
+			xy2c = document.getElementById("txtXY2c").value
+			colorFig= document.getElementById("color").value;
+			pintarCuadrado(xy1c,xy2c,colorFig);
+		
+			}
+				if(tipo=="cir"){
+			xy1ci = document.getElementById("txtXY1ci").value
+			xy2ci = document.getElementById("txtXY2ci").value
+			colorFig= document.getElementById("color").value;
+			pintarCirculo(xy1ci,xy2ci,colorFig);
+		
+			}
+			
+		}
+		
+		
+		
+			
+				
+		
+		
+		
+		</script>  
+		
+	</body>
+</html>
